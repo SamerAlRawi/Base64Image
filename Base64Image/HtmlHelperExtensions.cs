@@ -37,14 +37,17 @@ namespace Base64Image
             var physicalPath = htmlHelper.ViewContext.RequestContext.HttpContext.Server.MapPath(relativeLocation);
             if (File.Exists(physicalPath))
             {
-                using (Image image = Image.FromFile(physicalPath))
+                using (var fileStream = new FileStream(physicalPath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite))
                 {
-                    imageCodec = GetImageEncoding(image.RawFormat);
-                    using (MemoryStream m = new MemoryStream())
+                    using (Image image = Image.FromStream(fileStream))
                     {
-                        image.Save(m, image.RawFormat);
-                        byte[] imageBytes = m.ToArray();
-                        base64Image = Convert.ToBase64String(imageBytes);
+                        imageCodec = GetImageEncoding(image.RawFormat);
+                        using (MemoryStream m = new MemoryStream())
+                        {
+                            image.Save(m, image.RawFormat);
+                            byte[] imageBytes = m.ToArray();
+                            base64Image = Convert.ToBase64String(imageBytes);
+                        }
                     }
                 }
             }
