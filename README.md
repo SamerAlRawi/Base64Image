@@ -14,11 +14,17 @@ Add a using to Base64Image namespace in your `.cshtml` view
 @using Base64Image
 ```
 
-Add the following line to your `.cshtml` view, replace the base64 string with your image base64 string
+Add the following line to your `.cshtml || .aspx` view, replace the base64 string with your image base64 string
+
+Razor syntax
 ```c
 @Html.Base64ImageElement("iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg == ")
 ```
 
+web forms syntax
+```c
+<%= Html.Base64ImageElement("iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg == ") %>
+```
 ---
 To add an image from a file on your web server use the following example 
 ```c
