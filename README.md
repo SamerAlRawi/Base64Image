@@ -17,17 +17,17 @@ Add a using to Base64Image namespace in your `.cshtml` view
 Add the following line to your `.cshtml || .aspx` view, replace the base64 string with your image base64 string
 
 Razor syntax
-```c
+```ruby
 @Html.Base64ImageElement("iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg == ")
 ```
 
 web forms syntax
-```c
+```ruby
 <%= Html.Base64ImageElement("iVBORw0KGgoAAAANSUhEUgAAAAUAAAAFCAYAAACNbyblAAAAHElEQVQI12P4//8/w38GIAXDIBKE0DHxgljNBAAO9TXL0Y4OHwAAAABJRU5ErkJggg == ") %>
 ```
 ---
 To add an image from a file on your web server use the following example 
-```c
+```ruby
 @Html.Base64ImageFromFile("/Content/PIFN0.jpg")
 ```
 replace `PIFn0.jpg` with your file relative path and name
@@ -35,7 +35,7 @@ replace `PIFn0.jpg` with your file relative path and name
 ---
 
 For custom HTML attributes supply a dictionary with custom attirbutes
-```c
+```ruby
 @Html.Base64ImageFromFile("/Content/code-flat.png", new Dictionary<string, string> { { "class", "dottedBorder" }, { "id", "imageIdX" } })
 ```
 
