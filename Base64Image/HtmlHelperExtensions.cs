@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Web.Mvc;
 using System.Drawing;
@@ -8,22 +9,31 @@ namespace Base64Image
 {
     public static class HtmlHelperExtensions
     {
-        public static MvcHtmlString Base64ImageElement(this HtmlHelper htmlHelper, string base64Image)
+        /// <summary>
+        /// adds image dom element from a base64 image string
+        /// </summary>
+        /// <param name="htmlHelper"></param>
+        /// <param name="base64Image"></param>
+        /// <returns></returns>
+        public static MvcHtmlString Base64ImageElement(this HtmlHelper htmlHelper, string base64Image, Dictionary<string, string> htmlAttributes = null)
         {
             var builder = new TagBuilder("img");
-
-            var bytes = Convert.FromBase64String(base64Image);
-            var stream = new MemoryStream(bytes);
-            var imageCodec = GetImageEncoding(Image.FromStream(stream).RawFormat);
+            var imageCodec = TryGetFormatFromBase64String(base64Image);
             builder.Attributes.Add("src", BuildValues(imageCodec, base64Image));
+            AddHTMLAttributes(htmlAttributes, builder);
             return MvcHtmlString.Create(builder.ToString());
         }
-
-        public static MvcHtmlString Base64ImageFromFile(this HtmlHelper htmlHelper, string relativeLocation)
+        /// <summary>
+        /// adds image as base64 string from a physical image file on web server
+        /// </summary>
+        /// <param name="htmlHelper"></param>
+        /// <param name="relativeLocation"></param>
+        /// <returns></returns>
+        public static MvcHtmlString Base64ImageFromFile(this HtmlHelper htmlHelper, string relativeLocation, Dictionary<string, string> htmlAttributes = null)
         {
             var builder = new TagBuilder("img");
-            string base64Image = "";
-            string imageCodec = "";
+            var base64Image = "";
+            var imageCodec = "";
             var physicalPath = htmlHelper.ViewContext.RequestContext.HttpContext.Server.MapPath(relativeLocation);
             if (File.Exists(physicalPath))
             {
@@ -39,7 +49,26 @@ namespace Base64Image
                 }
             }
             builder.Attributes.Add("src", BuildValues(imageCodec, base64Image));
+            AddHTMLAttributes(htmlAttributes, builder);
             return MvcHtmlString.Create(builder.ToString());
+        }
+
+        private static void AddHTMLAttributes(Dictionary<string, string> htmlAttributes, TagBuilder builder)
+        {
+            if (htmlAttributes == null)
+                return;
+            foreach (var htmlAttribute in htmlAttributes)
+            {
+                builder.Attributes.Add(htmlAttribute.Key, htmlAttribute.Value);
+            }
+        }
+
+        private static string TryGetFormatFromBase64String(string base64Image)
+        {
+            var bytes = Convert.FromBase64String(base64Image);
+            var stream = new MemoryStream(bytes);
+            var imageCodec = GetImageEncoding(Image.FromStream(stream).RawFormat);
+            return imageCodec;
         }
 
         private static string GetImageEncoding(ImageFormat imageRawFormat)
