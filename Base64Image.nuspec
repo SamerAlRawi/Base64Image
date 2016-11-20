@@ -4,12 +4,14 @@
     <id>Base64Image</id>
     <version>1.0.0</version>
     <authors>Samer Al-Rawi</authors>
+    <title>Base64Image</title>
     <projectUrl>https://github.com/SamerAlRawi/Base64Image</projectUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
     <description>easily add images as a base64 encoded string to MVC Razor views</description>
     <summary>Base64Image package</summary>
     <copyright>Copyright Samer Al-Rawi</copyright>
     <language>en-US</language>
+    <tags>Base64Image Razor MVC encode</tags>
     <dependencies>
 		<dependency id="Microsoft.AspNet.Mvc" version="5.2.3" />
         <dependency id="Microsoft.AspNet.Razor" version="3.2.3" />
