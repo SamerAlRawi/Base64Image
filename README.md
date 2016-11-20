@@ -1,11 +1,11 @@
-### Base64Image
-
+# Base64Image
+---
 an easy way to add images as a base64 encoded strings in your MVC Razor pages.
 
 Examples:
 
 
-Add the `Base64Image` to your Web project
+Add the `Base64Image` package to your Web project
 ```sh
 Install-Package Base64Image
 ```
@@ -35,3 +35,8 @@ For custom HTML attributes supply a dictionary with custom attirbutes
 
 
 Check out the Demo web project in my repository for more examples.
+
+
+<span style="color:red; font-size:1em;">
+You may need to add assembly binding redirects if you end up with conflicting MVC dll's versions.
+</span>
